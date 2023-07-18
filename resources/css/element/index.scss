@@ -1,0 +1,4 @@
+@forward '../../../node_modules/element-plus/theme-chalk/src/common/var.scss' with ($colors: (
+  ));
+@use './dark.scss' as dark;
+@use "sass:map";
