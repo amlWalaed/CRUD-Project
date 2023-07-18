@@ -57,31 +57,42 @@ const closeProductForm = () => {
       </div>
       <ElTable :data="products.data" @sort-change="sortBy" stripe border>
         <ElTableColumn label="Id" type="index" />
+        <ElTableColumn label="Image">
+          <template #default="{ row }">
+            <template v-if="row.thumbnail">
+              <img :src="`/storage/${row.thumbnail}`" class="rounded-full w-8 mx-auto"/>
+            </template>
+            <div v-else class="rounded-full w-8 mx-auto bg-gray-100 dark:bg-gray-400 text-gray-900 aspect-square flex items-center justify-center uppercase">
+              <span>
+                {{ row.name[0] }}
+              </span>
+            </div>
+          </template>
+        </ElTableColumn>
         <ElTableColumn label="Name" prop="name" sortable="custom" />
         <ElTableColumn label="Price" prop="price" sortable="custom" />
         <ElTableColumn label="Discount" prop="discount" sortable="custom" />
+        <ElTableColumn label="Amount" prop="amount" sortable="custom" />
         <ElTableColumn label="">
           <template #default="{ row }">
             <Link :href="route('product.show', row)">
-              <ElButton type="primary" link>view</ElButton>
+            <ElButton type="primary" link>view</ElButton>
             </Link>
 
             <ElButton type="success" link @click="openEditForm(row)">Edit</ElButton>
 
-            <ElButton type="danger" link @click="deleteProduct(row)">Delete</ElButton>
+            <ElButton type="danger" link @click="deleteProduct(row)" class="!m-0">Delete</ElButton>
           </template>
         </ElTableColumn>
       </ElTable>
       <div class="flex justify-center mt-6">
-        <ElPagination layout="prev, pager, next" :pager-count="6"  
-        :current-page="products.current_page"
-        :total="products.total"  hide-on-single-page
-        @current-change="(page)=>router.visit(route('product.index',{
-          _query:{
-            page
-          }
-        }))"
-        />
+        <ElPagination layout="prev, pager, next" :pager-count="6" :current-page="products.current_page"
+          :total="products.total" hide-on-single-page @current-change="(page) => router.visit(route('product.index', {
+            _query: {
+              ...route().params,
+              page
+            }
+          }))" />
 
       </div>
     </ElCard>

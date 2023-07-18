@@ -37,7 +37,7 @@ const addProduct = () => {
 <template>
     <ElForm label-position="left" label-width="150px" class="p-6" @submit="addProduct">
         <ElFormItem label="Product Photo" :error="form.errors.thumbnail">
-            <UploadInput :url="'/storage/'+product?.thumbnail" @addFile="(file)=> form.thumbnail = file"/>
+            <UploadInput :url="product?.thumbnail ?'/storage/'+product?.thumbnail : false" @addFile="(file)=> form.thumbnail = file"/>
         </ElFormItem>
 
         <ElFormItem label="Product Name" :error="form.errors.name">

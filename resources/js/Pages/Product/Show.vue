@@ -1,11 +1,14 @@
 <script setup>
-    
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+    const props = defineProps({
+        product: Object,
+    })
 </script>
 
 <template>
-    <div>
-    show product
-    </div>
+    <AuthenticatedLayout>
+   
+    </AuthenticatedLayout>
 </template>
 
 <style></style>

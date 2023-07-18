@@ -32,7 +32,6 @@ class ProductController extends Controller
             'thumbnail' => ['image'],
             'name'=>['required','max:255'],
             'excerpt'=>['max:255'],
-            'description'=>['max:255'],
             'price'=>['required'],
             'amount'=>['required'],
             'discount'=>['between:0,100'],
@@ -47,11 +46,11 @@ class ProductController extends Controller
             'thumbnail' => ['image'],
             'name'=>['required','max:255'],
             'excerpt'=>['max:255'],
-            'description'=>['max:255'],
             'price'=>['required'],
             'amount'=>['required',],
             'discount'=>['between:0,100'],
         ]);
+        $attributes['thumbnail'] = $request->file('thumbnail')->store('product');
         $product->update($attributes);
         FlashMessage::make()->success(
             message:'you have edit '. $attributes['name']

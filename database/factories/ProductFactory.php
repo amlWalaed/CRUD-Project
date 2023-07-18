@@ -22,6 +22,7 @@ class ProductFactory extends Factory
             'excerpt' => fake()->sentence(20),
             'price'=>fake()->randomNumber(4),
             'discount'=>fake()->randomFloat(1,0,100),
+            'amount'=>fake()->randomNumber(3),
         ];
     }
 }
