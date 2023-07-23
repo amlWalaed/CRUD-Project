@@ -60,9 +60,9 @@ const closeProductForm = () => {
         <ElTableColumn label="Image">
           <template #default="{ row }">
             <template v-if="row.thumbnail">
-              <img :src="`/storage/${row.thumbnail}`" class="rounded-full w-8 mx-auto"/>
+              <img :src="`/storage/${row.thumbnail}`" class="w-8 mx-auto rounded-full"/>
             </template>
-            <div v-else class="rounded-full w-8 mx-auto bg-gray-100 dark:bg-gray-400 text-gray-900 aspect-square flex items-center justify-center uppercase">
+            <div v-else class="flex items-center justify-center w-8 mx-auto text-gray-900 uppercase bg-gray-100 rounded-full dark:bg-gray-400 aspect-square">
               <span>
                 {{ row.name[0] }}
               </span>
@@ -73,6 +73,11 @@ const closeProductForm = () => {
         <ElTableColumn label="Price" prop="price" sortable="custom" />
         <ElTableColumn label="Discount" prop="discount" sortable="custom" />
         <ElTableColumn label="Amount" prop="amount" sortable="custom" />
+        <ElTableColumn label="Rating" prop="rating"  sortable="custom" >
+          <template #default="{row}">
+            <ElRate v-model="row.rating" allow-half disabled/>
+          </template>
+        </ElTableColumn>
         <ElTableColumn label="">
           <template #default="{ row }">
             <Link :href="route('product.show', row)">

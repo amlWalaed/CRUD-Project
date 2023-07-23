@@ -5,6 +5,11 @@ Products:
 ✔ add a create and update form and associated with controllers @done(23-07-18 09:23)
 ✔ allow a delete for product @done(23-07-18 09:23)
 ✔ add a thumbnail for product @done(23-07-18 09:23)
-☐ add a rate column for product and display it in the table @started(23-07-18 09:52)
+✔ add a rate column for product and display it in the table @started(23-07-18 09:52) @done(23-07-23 13:47) @lasted(5d3h55m3s)
 ☐ design the show page of the product 
+
+Category:
+☐ add categories table with sub-categories relationships
+☐ make a relationship with product 
+
 
