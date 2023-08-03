@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -42,6 +43,10 @@ Route::middleware('auth')->group(function () {
         Route::post('store',[ProductController::class, 'store'])->name('product.store');
         Route::post('{product:slug}/edit',[ProductController::class, 'update'])->name('product.update');
         Route::delete('delete/{product}',[ProductController::class, 'destroy'])->name('product.destroy');
+    });
+    Route::prefix('department/')->group(function(){
+        Route::get('',[DepartmentController::class, 'index'])->name('department.index');
+        Route::get('{department:slug}',[DepartmentController::class, 'show'])->name('department.show');
     });
 });
 

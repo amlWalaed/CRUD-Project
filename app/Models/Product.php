@@ -13,6 +13,7 @@ class Product extends Model
     use HasFactory;
     use HasSlug;
     protected $guarded=[];
+    protected $with=['department'];
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
@@ -37,5 +38,8 @@ class Product extends Model
             $query->orderBy($sort['col'], $sortTypes[$sort['order']]);
         });
         return $query;
+    }
+    public function department(){
+        return $this->belongsTo(Department::class);
     }
 }

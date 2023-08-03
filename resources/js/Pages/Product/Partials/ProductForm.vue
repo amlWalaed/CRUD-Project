@@ -66,7 +66,7 @@ const addProduct = () => {
         <div class="flex justify-end gap-2">
 
             <ElButton plain @click="$emit('close')"> Cancel</ElButton>
-            <ElButton type="primary" :loading="form.processing" @click="addProduct"> Add</ElButton>
+            <ElButton type="primary" :loading="form.processing" @click="addProduct">Save</ElButton>
         </div>
     </ElForm>
 </template>

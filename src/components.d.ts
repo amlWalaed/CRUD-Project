@@ -22,9 +22,11 @@ declare module 'vue' {
     ElNotification: typeof import('element-plus/es')['ElNotification']
     ElPaginate: typeof import('element-plus/es')['ElPaginate']
     ElPagination: typeof import('element-plus/es')['ElPagination']
+    ElRate: typeof import('element-plus/es')['ElRate']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    ElTag: typeof import('element-plus/es')['ElTag']
     ElUpload: typeof import('element-plus/es')['ElUpload']
   }
 }
