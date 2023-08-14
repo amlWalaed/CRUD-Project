@@ -18,13 +18,18 @@ const props = defineProps({
                 <ElTableColumn label="Title" prop="title" />
                 <ElTableColumn label="Description" prop="description" />
                 <ElTableColumn>
-                    <template #default="{row}">
-                        <Link  :href="route('department.show',row)">
-                        <ElButton type="success" plain link>View</ElButton>
+                    <template #default="{ row }">
+                        <Link :href="route('department.show', row)">
+                        <ElButton type="primary" plain link>View</ElButton>
                         </Link>
+                        <ElButton type="success" plain link>Edit</ElButton>
+
                     </template>
                 </ElTableColumn>
             </ElTable>
+            <Modal :show="showProductForm" @close="closeProductForm">
+                <DepartmentForm :department="null" @close="closeProductForm" />
+            </Modal>
             <Pagination :item="departments" />
         </ElCard>
     </AuthenticatedLayout>

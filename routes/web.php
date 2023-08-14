@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('department/')->group(function(){
         Route::get('',[DepartmentController::class, 'index'])->name('department.index');
         Route::get('{department:slug}',[DepartmentController::class, 'show'])->name('department.show');
+        Route::get('{department:slug}',[DepartmentController::class, 'update'])->name('department.update');
     });
 });
 
