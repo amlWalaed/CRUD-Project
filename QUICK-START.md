@@ -97,6 +97,7 @@ sudo certbot --nginx -d your-domain.com -d www.your-domain.com
 ## Common Commands
 
 ### Restart services
+
 ```bash
 sudo systemctl restart nginx
 sudo systemctl restart php8.1-fpm
@@ -105,6 +106,7 @@ sudo systemctl restart mysql
 ```
 
 ### View logs
+
 ```bash
 # Nginx
 sudo tail -f /var/log/nginx/crud-project-error.log
@@ -117,6 +119,7 @@ sudo tail -f /var/log/php8.1-fpm.log
 ```
 
 ### Clear caches
+
 ```bash
 cd /var/www/crud-project
 sudo -u www-data php artisan cache:clear
@@ -126,6 +129,7 @@ sudo -u www-data php artisan view:clear
 ```
 
 ### Update application
+
 ```bash
 cd /var/www/crud-project
 sudo -u www-data git pull
@@ -137,4 +141,3 @@ sudo -u www-data php artisan config:cache
 sudo -u www-data php artisan route:cache
 sudo -u www-data php artisan view:cache
 ```
-

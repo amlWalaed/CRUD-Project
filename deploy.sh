@@ -20,13 +20,26 @@ APP_USER="www-data"
 PHP_VERSION="8.1"
 
 # Check if running as root
-if [ "$EUID" -ne 0 ]; then 
+if [ "$EUID" -ne 0 ]; then
     echo -e "${RED}Please run as root (use sudo)${NC}"
     exit 1
 fi
 
 echo -e "${GREEN}Step 1: Updating system packages...${NC}"
-apt-get update
+# Clear apt cache to fix potential mirror sync issues
+apt-get clean
+rm -rf /var/lib/apt/lists/*
+
+# Retry update with error handling
+if ! apt-get update; then
+    echo -e "${YELLOW}First update attempt failed, waiting 10 seconds and retrying...${NC}"
+    sleep 10
+    apt-get update || {
+        echo -e "${YELLOW}Still having issues. Trying with fix-missing flag...${NC}"
+        apt-get update --fix-missing
+    }
+fi
+
 apt-get upgrade -y
 
 echo -e "${GREEN}Step 2: Installing required packages...${NC}"
@@ -79,16 +92,16 @@ echo -e "${YELLOW}Example: git clone https://github.com/yourusername/CRUD-Projec
 # If files are already in the directory, proceed with setup
 if [ -f "${APP_DIR}/composer.json" ]; then
     cd ${APP_DIR}
-    
+
     echo -e "${GREEN}Installing PHP dependencies...${NC}"
     sudo -u ${APP_USER} composer install --no-dev --optimize-autoloader
-    
+
     echo -e "${GREEN}Installing Node.js dependencies...${NC}"
     sudo -u ${APP_USER} npm install
-    
+
     echo -e "${GREEN}Building frontend assets...${NC}"
     sudo -u ${APP_USER} npm run build
-    
+
     echo -e "${GREEN}Setting up environment file...${NC}"
     if [ ! -f .env ]; then
         if [ -f .env.example ]; then
@@ -137,13 +150,13 @@ EOF
         echo -e "${YELLOW}Generating application key...${NC}"
         sudo -u ${APP_USER} php artisan key:generate
     fi
-    
+
     echo -e "${GREEN}Setting permissions...${NC}"
     chown -R ${APP_USER}:${APP_USER} ${APP_DIR}
     chmod -R 755 ${APP_DIR}
     chmod -R 775 ${APP_DIR}/storage
     chmod -R 775 ${APP_DIR}/bootstrap/cache
-    
+
     echo -e "${GREEN}Running database migrations...${NC}"
     echo -e "${YELLOW}Make sure your database is configured in .env before running migrations${NC}"
     read -p "Run migrations now? (y/n) " -n 1 -r
@@ -151,7 +164,7 @@ EOF
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         sudo -u ${APP_USER} php artisan migrate --force
     fi
-    
+
     echo -e "${GREEN}Optimizing Laravel...${NC}"
     sudo -u ${APP_USER} php artisan config:cache
     sudo -u ${APP_USER} php artisan route:cache
